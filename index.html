@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aventura Pirata: Nivel Avanzado</title>
+    <title>Aventura Pirata: Reto Décimo Grado - DUA Interactivo</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -231,17 +231,58 @@
             color: white;
             border: 1px solid #81c784;
         }
-        .context-box {
+
+        /* Estilos para el panel DUA de Apoyo */
+        .dua-container {
             background: #004d40;
-            border-left: 5px solid #26a69a;
-            padding: 12px;
-            margin-top: 10px;
-            border-radius: 4px;
-            font-size: 13px;
+            border: 2px solid #26a69a;
+            padding: 15px;
+            margin-top: 12px;
+            border-radius: 8px;
             display: none;
-            color: #e0f2f1;
-            line-height: 1.4;
         }
+        .dua-title {
+            color: #ffca28;
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 8px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .dua-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .dua-btn {
+            background: #00695c;
+            color: #e0f2f1;
+            border: 1px solid #4db6ac;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: left;
+            transition: background 0.2s;
+        }
+        .dua-btn:hover {
+            background: #00897b;
+            color: #fff;
+        }
+        .dua-content-display {
+            background: #00251a;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #b2dfdb;
+            line-height: 1.4;
+            border-left: 4px solid #ffca28;
+            display: none;
+        }
+
         .btn-action {
             background: #ff6f00;
             color: white;
@@ -272,32 +313,33 @@
 </head>
 <body>
 
-    <h1>🏴‍☠️️ Aventura Pirata 🚢</h1>
-    
+    <h1>🏴‍‍☠️ Aventura Pirata: Reto Décimo (DUA Interactivo) 🚢</h1>
+    <div class="subtitle">Trivia Inclusiva con Múltiples Medios de Apoyo Directo</div>
+
     <div class="game-container">
         
         <div id="registerScreen">
-            <h3 style="color: #ffca28; margin-top: 0;">Registro del Docente</h3>
-            <p style="font-size: 13px; color: #b0bec5;">Por favor ingresa tus datos para comenzar el desafío avanzado.</p>
+            <h3 style="color: #ffca28; margin-top: 0;">Registro del Estudiante</h3>
+            <p style="font-size: 13px; color: #b0bec5;">Ingresa tus datos para iniciar tu aventura pirata.</p>
             
             <div class="form-group">
-                <label for="inputNombre">Nombre del Docente:</label>
-                <input type="text" id="inputNombre" placeholder="Ej. Nini Triana" required>
+                <label for="inputNombre">Nombre del Estudiante:</label>
+                <input type="text" id="inputNombre" placeholder="Ej. Carlos Pérez" required>
             </div>
             
             <div class="form-group">
-                <label for="inputArea">Área o Asignatura:</label>
-                <input type="text" id="inputArea" placeholder="Ej. Matemáticas" required>
+                <label for="inputCurso">Curso:</label>
+                <input type="text" id="inputCurso" placeholder="Ej. 1001" required>
             </div>
             
-            <button class="btn-action" onclick="comenzarJuego()">⛵ Iniciar Desafío</button>
+            <button class="btn-action" onclick="comenzarJuego()">⛵ ¡A Navegar!</button>
         </div>
 
         <div id="gameMainSection" style="display: none;">
             
             <div class="player-info-display">
-                <span id="displayDocente">Docente: -</span>
-                <span id="displayArea">Área: -</span>
+                <span id="displayEstudiante">Estudiante: -</span>
+                <span id="displayCurso">Curso: -</span>
             </div>
 
             <div class="sea-landscape">
@@ -339,13 +381,25 @@
                 </div>
 
                 <div id="messageBox" class="message-box"></div>
-                <div id="contextBox" class="context-box"></div>
+                
+                <!-- Panel DUA de Apoyo Interactivo -->
+                <div id="duaPanel" class="dua-container">
+                    <div class="dua-title">⚓ APOYA TU APRENDIZAJE (DUA) ⚓</div>
+                    <p style="font-size: 12px; text-align: center; margin: 4px 0 10px; color: #80cbc4;">Selecciona el recurso interactivo para reforzar el tema:</p>
+                    <div class="dua-options">
+                        <button class="dua-btn" onclick="mostrarRecursoDua('lectura')">1. 📖 Contexto (Lectura)</button>
+                        <button class="dua-btn" onclick="mostrarRecursoDua('imagen')">2. 🖼️️ Imagen Interactiva</button>
+                        <button class="dua-btn" onclick="mostrarRecursoDua('audio')">3. 🔊 Audio / Podcast Web</button>
+                        <button class="dua-btn" onclick="mostrarRecursoDua('video')">4. 🎬 Video Educativo</button>
+                    </div>
+                    <div id="duaDisplay" class="dua-content-display"></div>
+                </div>
             </div>
 
             <div id="winScreen" style="display: none; text-align: center; padding: 15px;">
-                <h2>🎉 ¡VICTORIA MAESTRA, CAPITÁN! 🎉</h2>
-                <p>¡Has superado el desafío avanzado y llegado al barco con éxito!</p>
-                <p id="envioEstado" style="font-size: 14px; color: #ffca28; margin: 15px 0; font-weight: bold;">Tus resultados se están enviando al Drive...</p>
+                <h2>🎉 ¡HAS LLEGADO AL TESORO, PIRATA! 🎉</h2>
+                <p>¡Completaste todas las pruebas de décimo grado con éxito!</p>
+                <p id="envioEstado" style="font-size: 14px; color: #ffca28; margin: 15px 0; font-weight: bold;">Tus resultados se están guardando...</p>
                 
                 <button class="btn-action" style="background: #37474f; margin-top: 15px;" onclick="reiniciarJuego()">🔄 Jugar de nuevo</button>
             </div>
@@ -355,46 +409,211 @@
 
     <script>
         const preguntas = [
-            { cat: "Lenguaje", pregunta: "En la novela 1984 de George Orwell, ¿qué término se utiliza para describir la práctica de alterar registros históricos en los registros públicos?[cite: 1]", opciones: ["Neolengua", "Crimental", "La modificación en los orificios de memoria", "La escisión del pensamiento"], correcta: 2, contexto: "💡 Contexto de ayuda: En la distopía orwelliana, los documentos históricos alterados eran arrojados por unos tubos neumáticos llamados orificios de memoria para que desaparecieran sin dejar rastro." },
-            { cat: "Matemáticas", pregunta: "Si una función polinómica de tercer grado tiene raíces reales en x = -2, x = 1 y x = 3, ¿cuál es su forma factorizada con coeficiente positivo?[cite: 1]", opciones: ["f(x) = (x - 2)(x + 1)(x + 3)", "f(x) = (x + 2)(x - 1)(x - 3)", "f(x) = -(x + 2)(x - 1)(x - 3)", "f(x) = (x + 2)^2(x - 1)"], correcta: 1, contexto: "💡 Contexto de ayuda: Si una función tiene una raíz en x = c, su factor asociado es (x - c). Por lo tanto, una raíz negativa como -2 genera el factor (x - (-2)) = (x + 2)." },
-            { cat: "Artes", pregunta: "¿Qué movimiento artístico del s. XX buscaba ensalzar la modernidad, la velocidad, la maquinaria y la energía industrial?[cite: 1]", opciones: ["Impresionismo", "Surrealismo", "Futurismo", "Dadaísmo"], correcta: 2, contexto: "💡 Contexto de ayuda: Este movimiento vanguardista nació en Italia en 1909 con el manifiesto de Marinetti, rindiendo culto a las máquinas y la dinámica urbana." },
-            { cat: "Música", pregunta: "En acústica musical, ¿qué relación de frecuencias caracteriza a un intervalo de octava justa?[cite: 1]", opciones: ["Relación de 3:2", "Relación de 2:1", "Relación de 4:3", "Relación de 5:4"], correcta: 1, contexto: "💡 Contexto de ayuda: Una octava representa la duplicación exacta de la frecuencia sonora; por ejemplo, si la nota base vibra a 440 Hz, la octava superior vibra al doble: 880 Hz." },
-            { cat: "Educación Física", pregunta: "¿Cuál es el subproducto metabólico principal en un esfuerzo anaeróbico láctico que provoca fatiga extrema?[cite: 1]", opciones: ["Ácido láctico (lactato)", "Urea", "Ácido úrico", "Triglicéridos"], correcta: 0, contexto: "💡 Contexto de ayuda: Ante la falta de oxígeno suficiente para la demanda rápida, la glucólisis descompone la glucosa generando lactato como residuo temporal." },
-            { cat: "Biología", pregunta: "¿Cuál es el proceso molecular mediante el cual se sintetiza ARN mensajero utilizando ADN como molde?[cite: 1]", opciones: ["Replicación", "Traducción", "Transcripción", "Duplicación"], correcta: 2, contexto: "💡 Contexto de ayuda: Ocurre en el núcleo celular gracias a la enzima ARN polimerasa, trasladando el código genético a un formato intermediario de ARN." },
-            { cat: "Física", pregunta: "En un circuito de corriente alterna en serie (R-L-C), ¿qué condición ocurre en la frecuencia de resonancia?[cite: 1]", opciones: ["La reactancia inductiva se hace cero", "La reactancia inductiva y la capacitancia se anulan mutuamente", "La impedancia alcanza su valor máximo", "La corriente cae a cero"], correcta: 1, contexto: "💡 Contexto de ayuda: En la resonancia, las caídas de voltaje de la bobina y el condensador se desfasasn 180° cancelándose, haciendo la impedancia puramente resistiva." },
-            { cat: "Química", pregunta: "Según Le Chatelier, si en un sistema en equilibrio exotérmico se aumenta la temperatura, ¿cómo se desplaza?[cite: 1]", opciones: ["Hacia los productos", "Hacia los reactivos (sentido endotérmico)", "No sufre ninguna alteración", "La constante aumenta"], correcta: 1, contexto: "💡 Contexto de ayuda: Las reacciones exotérmicas liberan calor. Al calentar el sistema, este contrarresta el aumento desplazando la reacción hacia los reactivos." },
-            { cat: "Ciencias Políticas", pregunta: "¿Qué concepto describe un régimen de poder concentrado que ejerce control absoluto sobre la vida pública y privada?[cite: 1]", opciones: ["Democracia deliberativa", "Estado federal", "Totalitarismo", "Monarquía constitucional"], correcta: 2, contexto: "💡 Contexto de ayuda: A diferencia del autoritarismo tradicional, el totalitarismo impregna ideológicamente toda la sociedad y suprime los límites con la vida privada." },
-            { cat: "Ciencias Económicas", pregunta: "¿Cómo se denomina al fenómeno de desaceleración económica combinado con alta inflación y desempleo?[cite: 1]", opciones: ["Deflación", "Estanflación", "Hiperinflación", "Expansión cíclica"], correcta: 1, contexto: "💡 Contexto de ayuda: Es un término que fusiona estancamiento e inflación, desafiando las teorías económicas que dictaban que ambos no podían subir juntos." },
-            { cat: "Filosofía", pregunta: "En la epistemología kantiana, ¿cómo se denominan las estructuras a priori que pertenecen a la mente para ordenar el mundo?[cite: 1]", opciones: ["Ideas empíricas", "Formas a priori y categorías del entendimiento", "Concepciones sofistas", "Percepciones inductivas"], correcta: 1, contexto: "💡 Contexto de ayuda: Kant argumentaba que el conocimiento requiere moldes mentales previos como el espacio y el tiempo para procesar la experiencia." },
-            { cat: "Ética", pregunta: "Desde la deontología de Kant, ¿en qué radica el valor moral de una acción humana?[cite: 1]", opciones: ["En las consecuencias placenteras", "En el cumplimiento del deber por puro respeto a la ley moral", "En la aprobación social", "En la utilidad general"], correcta: 1, contexto: "💡 Contexto de ayuda: Para el kantianismo, lo moralmente correcto no depende del resultado práctico, sino del principio racional y el deber que la motiva." },
-            { cat: "Religión", pregunta: "¿Cuál es el texto sagrado fundamental del islam que recopila las revelaciones hechas a Mahoma?[cite: 1]", opciones: ["La Torá", "El Corán", "Los Vedas", "El Talmud"], correcta: 1, contexto: "💡 Contexto de ayuda: El Corán es considerado por los creyentes la palabra literal e inalterada de Dios revelada en lengua árabe." },
-            { cat: "Tecnología", pregunta: "¿Qué estructura de datos lineal opera bajo el principio LIFO (Último en entrar, primero en salir)?[cite: 1]", opciones: ["Una cola (Queue)", "Una pila (Stack)", "Un árbol binario", "Una tabla hash"], correcta: 1, contexto: "💡 Contexto de ayuda: Funciona exactamente igual que una pila de platos: el último plato que colocas encima es el primero que debes retirar." },
-            { cat: "Inglés", pregunta: "Choose the correct sentence using the third conditional structure:[cite: 1]", opciones: ["If I study hard, I will pass the exam.", "If I studied harder, I would pass the exam.", "If I had studied harder, I would have passed the exam.", "If I would have studied, I passed."], correcta: 2, contexto: "💡 Contexto de ayuda: El tercer condicional emplea: If + past perfect (had + participio), seguido de would have + participio en la cláusula principal." }
+            { 
+                cat: "Lenguaje", 
+                pregunta: "¿Cuál es la figura literaria presente en la frase: 'El viento susurraba secretos entre los árboles'?", 
+                opciones: ["Metáfora", "Personificación (Prosopopeya)", "Hipérbole", "Hipérbaton"], 
+                correcta: 1, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> La prosopopeya o personificación consiste en dar atributos, sentimientos o acciones humanas a objetos o elementos de la naturaleza.",
+                    imagen: "🖼️ <strong>Recurso de Imagen:</strong> <a href='https://pixabay.com/es/images/search/personificaci%C3%B3n/' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para explorar galerías visuales de metáforas y personificaciones en Pixabay</a>",
+                    audio: "🔊 <strong>Recurso Auditivo:</strong> <a href='https://soundcloud.com/search?q=figuras%20literarias' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para escuchar podcasts explicativos sobre literatura en SoundCloud</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=figuras+literarias+personificacion' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver cápsula educativa sobre figuras literarias en YouTube</a>"
+                }
+            },
+            { 
+                cat: "Matemáticas", 
+                pregunta: "¿Cuál es el valor de la pendiente ($m$) de la línea recta que pasa por los puntos $(1, 2)$ y $(3, 6)$?", 
+                opciones: ["m = 1", "m = 2", "m = 4", "m = 1/2"], 
+                correcta: 1, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> La pendiente mide la inclinación de una recta. Se calcula restando las coordenadas $y_2 - y_1$ divididas entre $x_2 - x_1$.",
+                    imagen: "🖼️ <strong>Recurso Gráfico Interactivo GeoGebra:</strong> <a href='https://www.geogebra.org/m/ZVgnB73N' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para interactuar con la simulación de pendientes en GeoGebra</a>",
+                    audio: "🔊 <strong>Recurso Auditivo:</strong> <a href='https://open.spotify.com/search/pendiente%20matematicas' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para buscar episodios educativos de matemáticas en Spotify</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=como+calcular+la+pendiente+de+una+recta' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver videotutorial de pendientes en el plano cartesiano</a>"
+                }
+            },
+            { 
+                cat: "Artes", 
+                pregunta: "¿Qué técnica pictórica famosa utilizó Leonardo da Vinci en obras como la Mona Lisa para difuminar los contornos y dar un efecto realista?", 
+                opciones: ["Puntillismo", "Fresco", "Sfumato", "Claroscuro"], 
+                correcta: 2, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> El sfumato evita las líneas duras superponiendo capas sutiles de pintura para imitar cómo el ojo percibe la distancia en la bruma.",
+                    imagen: "🖼️ <strong>Recurso de Imagen Artística:</strong> <a href='https://artsandculture.google.com/search?q=Leonardo%20da%20Vinci' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para explorar obras en alta resolución en Google Arts & Culture</a>",
+                    audio: "🔊 <strong>Recurso Auditivo:</strong> <a href='https://soundcloud.com/search?q=historia%20del%20arte%20da%20vinci' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para escuchar audios sobre técnicas de pintura en SoundCloud</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=tecnica+del+sfumato+leonardo+da+vinci' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver análisis artístico del Sfumato</a>"
+                }
+            },
+            { 
+                cat: "Música", 
+                pregunta: "¿Cómo se le llama a la distancia o intervalo musical que existe entre una nota y su repetición exacta al doble de frecuencia?", 
+                opciones: ["Octava", "Tercera", "Quinta", "Unísono"], 
+                correcta: 0, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> En la escala musical occidental, abarca 8 notas naturales (de un Do al siguiente Do más agudo).",
+                    imagen: "🖼️ <strong>Recurso Gráfico Musical:</strong> <a href='https://commons.wikimedia.org/wiki/File:Perfect_octave_on_C.png' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para ver el diagrama de partitura de una octava en Wikimedia Commons</a>",
+                    audio: "🔊 <strong>Recurso Auditivo Interactivo:</strong> <a href='https://www.szynalski.com/tone-generator/' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para abrir un generador de tonos online y comparar frecuencias (ej. 261Hz y 523Hz)</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=intervalos+musicales+la+octava' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver explicación de intervalos musicales</a>"
+                }
+            },
+            { 
+                cat: "Educación Física", 
+                pregunta: "¿Qué capacidad física condicional nos permite mantener un esfuerzo físico durante el mayor tiempo posible resistiendo la fatiga?", 
+                opciones: ["Fuerza explosiva", "Velocidad de reacción", "Resistencia aeróbica", "Flexibilidad"], 
+                correcta: 2, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> Involucra principalmente al corazón y los pulmones para aportar oxígeno de forma continua a los músculos en actividades prolongadas.",
+                    imagen: "🖼️ <strong>Recurso de Imagen Deportiva:</strong> <a href='https://pixabay.com/es/images/search/resistencia%20deportiva/' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para ver infografías de entrenamiento físico en Pixabay</a>",
+                    audio: "🔊 <strong>Recurso Auditivo:</strong> <a href='https://open.spotify.com/search/entrenamiento%20cardio%20podcast' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para escuchar podcasts sobre salud cardiovascular en Spotify</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=capacidades+fisicas+resistencia+aerobica' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver clase de educación física sobre resistencia</a>"
+                }
+            },
+            { 
+                cat: "Biología", 
+                pregunta: "¿Cuál es el orgánulo celular conocido popularmente como la 'central energética' de la célula eucariota?", 
+                opciones: ["Ribosoma", "Mitocondria", "Aparato de Golgi", "Lisosoma"], 
+                correcta: 1, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> Las mitocondrias convierten los nutrientes en energía en forma de trifosfato de adenosina (ATP) mediante procesos metabólicos.",
+                    imagen: "🖼️ <strong>Recurso de Modelo 3D:</strong> <a href='https://sketchfab.com/search?q=mitochondria&type=models' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para explorar un modelo interactivo 3D de la mitocondria en Sketchfab</a>",
+                    audio: "🔊 <strong>Recurso Auditivo de Ciencia:</strong> <a href='https://soundcloud.com/search?q=biologia%20celular' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para escuchar explicaciones en audio sobre biología celular en SoundCloud</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=la+mitocondria+respiracion+celular' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver animación 3D de la mitocondria</a>"
+                }
+            },
+            { 
+                cat: "Física", 
+                pregunta: "Según la segunda ley de Newton, ¿cuál es la fórmula fundamental que relaciona la fuerza ($F$), la masa ($m$) y la aceleración ($a$)?", 
+                opciones: ["F = m / a", "F = m · a", "F = a / m", "F = m + a"], 
+                correcta: 1, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> A mayor masa de un objeto, mayor fuerza se requerirá para acelerarlo al mismo ritmo.",
+                    imagen: "🖼️ <strong>Recurso de Simulación Física PhET:</strong> <a href='https://phet.colorado.edu/es/simulation/forces-and-motion-basics' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para simular fuerzas y movimiento en tiempo real con PhET Colorado</a>",
+                    audio: "🔊 <strong>Recurso Auditivo:</strong> <a href='https://open.spotify.com/search/fisica%20newton%20podcast' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para escuchar podcasts sobre las leyes de Newton en Spotify</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=segunda+ley+de+newton+explicacion' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver experimento de la segunda ley de Newton</a>"
+                }
+            },
+            { 
+                cat: "Química", 
+                pregunta: "En la tabla periódica, ¿cómo se le denominan a los elementos ubicados en el Grupo 18, los cuales son sumamente estables y poco reactivos?", 
+                opciones: ["Metales alcalinos", "Halógenos", "Gases nobles", "Metales de transición"], 
+                correcta: 2, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> También llamados gases inertes, tienen su capa de valencia electrónica completa, por lo que no necesitan combinarse con otros elementos.",
+                    imagen: "🖼️ <strong>Recurso Tabla Periódica Interactiva Ptable:</strong> <a href='https://ptable.com/?lang=es#Properties/Group' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para explorar la tabla periódica interactiva y ver el Grupo 18 en Ptable</a>",
+                    audio: "🔊 <strong>Recurso Auditivo:</strong> <a href='https://soundcloud.com/search?q=gases%20nobles%20quimica' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para escuchar lecciones de química en audio en SoundCloud</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=gases+nobles+grupo+18+tabla+periodica' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver propiedades de los gases nobles</a>"
+                }
+            },
+            { 
+                cat: "Ciencias Sociales", 
+                pregunta: "¿Qué acontecimiento histórico ocurrido en 1789 marcó el fin del Antiguo Régimen y el inicio de la Edad Contemporánea en Europa?", 
+                opciones: ["La Revolución Francesa", "La caída del Imperio Romano", "La Revolución Industrial", "El descubrimiento de América"], 
+                correcta: 0, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> Derrocó el poder absoluto del rey Luis XVI y proclamó los derechos del ciudadano.",
+                    imagen: "🖼️ <strong>Recurso de Imagen Histórica:</strong> <a href='https://artsandculture.google.com/search?q=Revoluci%C3%B3n%20Francesa' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para ver pinturas y archivos históricos de la Revolución Francesa en Google Arts & Culture</a>",
+                    audio: "🔊 <strong>Recurso Podcast Histórico:</strong> <a href='https://open.spotify.com/search/revolucion%20francesa%20podcast' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para escuchar episodios de historia universal en Spotify</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=la+revolucion+francesa+resumen' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver resumen animado de la Revolución Francesa</a>"
+                }
+            },
+            { 
+                cat: "Economía", 
+                pregunta: "¿Cómo se llama al impuesto general que se cobra sobre el consumo de bienes y servicios en muchos países (como el IVA)?", 
+                opciones: ["Impuesto a la renta", "Arancel aduanero", "Impuesto al valor agregado", "Tasa municipal"], 
+                correcta: 2, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> Es un tributo de naturaleza indirecta que grava el consumo final de mercancías y servicios comerciales.",
+                    imagen: "🖼️ <strong>Recurso Infográfico:</strong> <a href='https://pixabay.com/es/images/search/impuestos%20finanzas/' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para ver esquemas e infografías sobre economía y consumo en Pixabay</a>",
+                    audio: "🔊 <strong>Recurso Podcast Financiero:</strong> <a href='https://open.spotify.com/search/educacion%20financiera%20impuestos' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para escuchar podcasts de finanzas personales en Spotify</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=que+es+el+iva+impuesto+al+valor+agregado' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver explicación financiera sobre el IVA</a>"
+                }
+            },
+            { 
+                cat: "Filosofía", 
+                pregunta: "¿A qué célebre filósofo griego de la antigüedad se le atribuye la famosa frase 'Sólo sé que nada sé'?", 
+                opciones: ["Platón", "Aristóteles", "Sócrates", "Pitágoras"], 
+                correcta: 2, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> Representa la actitud de humildad intelectual y el reconocimiento de los propios límites ante el conocimiento universal.",
+                    imagen: "🖼️ <strong>Recurso de Imagen Filosófica:</strong> <a href='https://commons.wikimedia.org/wiki/File:Socrates_Louvre.jpg' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para ver la escultura clásica de Sócrates en Wikimedia Commons</a>",
+                    audio: "🔊 <strong>Recurso Podcast de Filosofía:</strong> <a href='https://open.spotify.com/search/socrates%20filosofia%20podcast' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para escuchar audios y reflexiones filosóficas en Spotify</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=filosofia+socrates+solo+se+que+nada+se' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver cápsula filosófica de Sócrates</a>"
+                }
+            },
+            { 
+                cat: "Ética", 
+                pregunta: "¿Qué valor ético y ciudadano implica ponerse en el lugar del otro para comprender sus sentimientos y perspectiva?", 
+                opciones: ["Apatía", "Empatía", "Autoridad", "Indiferencia"], 
+                correcta: 1, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> Permite conectar emocionalmente con las vivencias ajenas sin juzgar, facilitando la cohesión social.",
+                    imagen: "🖼️ <strong>Recurso Visual Inclusivo:</strong> <a href='https://pixabay.com/es/images/search/empatia%20solidaridad/' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para ver ilustraciones sobre empatía y convivencia en Pixabay</a>",
+                    audio: "🔊 <strong>Recurso Auditivo de Bienestar:</strong> <a href='https://soundcloud.com/search?q=empatia%20emociones' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para escuchar reflexiones sobre inteligencia emocional en SoundCloud</a>",
+                    video: "🎬 <strong>Video cortometraje:</strong> <a href='https://www.youtube.com/results?search_query=que+es+la+empatia+animacion' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver animación sobre la importancia de la empatía</a>"
+                }
+            },
+            { 
+                cat: "Religión", 
+                pregunta: "¿Cuál es el libro sagrado que comparten las tradiciones del judaísmo y el cristianismo (en su sección del Antiguo Testamento)?", 
+                opciones: ["El Corán", "La Torá / Antiguo Testamento", "El Bhagavad Gita", "El Libro de los Vedas"], 
+                correcta: 1, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> Contiene los textos fundacionales compartidos de la ley, los profetas y la historia sagrada antigua.",
+                    imagen: "🖼️ <strong>Recurso de Manuscritos Históricos:</strong> <a href='https://artsandculture.google.com/search?q=manuscritos%20antiguos' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para explorar archivos de textos históricos en Google Arts & Culture</a>",
+                    audio: "🔊 <strong>Recurso Podcast Cultural:</strong> <a href='https://open.spotify.com/search/historia%20de%20las%20religiones' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para escuchar debates históricos en Spotify</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=la+tora+y+el+antiguo_testamento' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver contexto histórico de los textos sagrados</a>"
+                }
+            },
+            { 
+                cat: "Tecnología", 
+                pregunta: "¿Qué significan las siglas **HTML** en el diseño y desarrollo de páginas web?", 
+                opciones: ["HyperText Markup Language", "High Transfer Modern Link", "Home Tool Multi Language", "Hyperlink Text Management Logic"], 
+                correcta: 0, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> Es el lenguaje de marcado básico empleado para estructurar etiquetas, textos y elementos multimedia en la web.",
+                    imagen: "🖼️ <strong>Recurso de Código Visual:</strong> <a href='https://pixabay.com/es/images/search/html%20programacion/' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para ver infografías de desarrollo web en Pixabay</a>",
+                    audio: "🔊 <strong>Recurso Podcast Tecnológico:</strong> <a href='https://open.spotify.com/search/programacion%20web%20podcast' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para escuchar podcasts de programación web en Spotify</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=que+es+html+para+principiantes' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver introducción al lenguaje HTML</a>"
+                }
+            },
+            { 
+                cat: "Inglés", 
+                pregunta: "Choose the correct sentence in the simple past tense:", 
+                opciones: ["She plays tennis yesterday.", "She played tennis yesterday.", "She is playing tennis yesterday.", "She will play tennis yesterday."], 
+                correcta: 1, 
+                dua: {
+                    lectura: "📖 <strong>Contexto:</strong> 'Yesterday' indica pasado. Los verbos regulares en pasado simple añaden '-ed' (play ➔ played).",
+                    imagen: "🖼️ <strong>Recurso Gráfico Gramatical:</strong> <a href='https://pixabay.com/es/images/search/english%20grammar/' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para ver esquemas de gramática en inglés en Pixabay</a>",
+                    audio: "🔊 <strong>Recurso Auditivo de Inglés:</strong> <a href='https://open.spotify.com/search/learn%20english%20grammar%20podcast' target='_blank' style='color: #ffca28; font-weight: bold;'>Haz clic aquí para escuchar podcasts de aprendizaje de inglés en Spotify</a>",
+                    video: "🎬 <strong>Video guía:</strong> <a href='https://www.youtube.com/results?search_query=simple+past+tense+regular+verbs+ingles' target='_blank' style='color: #ffca28; font-weight: bold;'>Ver lección rápida de inglés sobre el Pasado Simple</a>"
+                }
+            }
         ];
 
         let nivelActual = 0;
         let intentosFallidosEnNivel = 0;
         let tiempoRestante = 30;
         let temporizadorInterval;
-        let docenteNombre = "";
-        let docenteArea = "";
+        let estudianteNombre = "";
+        let estudianteCurso = "";
         let estadisticasJuego = [];
 
         function comenzarJuego() {
             const nom = document.getElementById('inputNombre').value.trim();
-            const area = document.getElementById('inputArea').value.trim();
+            const curso = document.getElementById('inputCurso').value.trim();
 
-            if (!nom || !area) {
-                alert("Por favor completa tu nombre y tu área antes de continuar.");
+            if (!nom || !curso) {
+                alert("Por favor completa tu nombre y tu curso antes de continuar.");
                 return;
             }
 
-            docenteNombre = nom;
-            docenteArea = area;
+            estudianteNombre = nom;
+            estudianteCurso = curso;
             estadisticasJuego = [];
 
-            document.getElementById('displayDocente').innerText = `Docente: ${docenteNombre}`;
-            document.getElementById('displayArea').innerText = `Área: ${docenteArea}`;
+            document.getElementById('displayEstudiante').innerText = `Estudiante: ${estudianteNombre}`;
+            document.getElementById('displayCurso').innerText = `Curso: ${estudianteCurso}`;
 
             document.getElementById('registerScreen').style.display = 'none';
             document.getElementById('gameMainSection').style.display = 'block';
@@ -500,35 +719,34 @@
             });
 
             document.getElementById('messageBox').style.display = 'none';
-            document.getElementById('contextBox').style.display = 'none';
+            document.getElementById('duaPanel').style.display = 'none';
+            document.getElementById('duaDisplay').style.display = 'none';
             iniciarTemporizador();
         }
 
         function manejarTiempoAgotado() {
             intentosFallidosEnNivel = 1;
-            const p = preguntas[nivelActual];
             const msgBox = document.getElementById('messageBox');
-            const contextBox = document.getElementById('contextBox');
 
             document.getElementById('timerBadge').style.display = 'none';
             msgBox.className = 'message-box msg-error';
-            msgBox.innerText = "TIEMPO AGOTADO - LEE EL CONTEXTO Y VUELVELO A INTENTAR";
+            msgBox.innerText = "¡TIEMPO AGOTADO! EXPLORA LAS OPCIONES DE APOYO DUA ABAJO";
             msgBox.style.display = 'block';
-            contextBox.innerText = p.contexto;
-            contextBox.style.display = 'block';
+            
+            document.getElementById('duaPanel').style.display = 'block';
+            document.getElementById('duaDisplay').style.display = 'none';
         }
 
         function verificarRespuesta(seleccionada) {
             detenerTemporizador();
             const p = preguntas[nivelActual];
             const msgBox = document.getElementById('messageBox');
-            const contextBox = document.getElementById('contextBox');
 
             if (seleccionada === p.correcta) {
                 msgBox.className = 'message-box msg-success';
-                msgBox.innerText = '¡Excelente! El pirata avanza hacia la siguiente tabla.';
+                msgBox.innerText = '¡Correcto! El pirata avanza con firmeza.';
                 msgBox.style.display = 'block';
-                contextBox.style.display = 'none';
+                document.getElementById('duaPanel').style.display = 'none';
 
                 estadisticasJuego.push({
                     nivel: nivelActual + 1,
@@ -560,35 +778,36 @@
                 msgBox.className = 'message-box msg-error';
                 document.getElementById('timerBadge').style.display = 'none';
 
-                if (intentosFallidosEnNivel === 1) {
-                    msgBox.innerText = "INCORRECTO - LEE EL CONTEXTO Y REINTENTA";
-                    contextBox.innerText = p.contexto;
-                    contextBox.style.display = 'block';
-                    msgBox.style.display = 'block';
-                } else {
-                    msgBox.innerText = "CONSULTA CON IA E INTENTALO DE NUEVO";
-                    contextBox.innerText = `💡 Sugerencia IA: Analiza el concepto de "${p.cat}" con ayuda de inteligencia artificial para resolver este reto.`;
-                    contextBox.style.display = 'block';
-                    msgBox.style.display = 'block';
+                msgBox.innerText = "INCORRECTO - ELIGE UN APOYO DUA PARA REINTENTAR";
+                msgBox.style.display = 'block';
+                
+                document.getElementById('duaPanel').style.display = 'block';
+                document.getElementById('duaDisplay').style.display = 'none';
 
-                    estadisticasJuego.push({
-                        nivel: nivelActual + 1,
-                        categoria: p.cat,
-                        pregunta: p.pregunta,
-                        estado: "Consultó a IA / Reintentos",
-                        intentos: intentosFallidosEnNivel
-                    });
-                }
+                estadisticasJuego.push({
+                    nivel: nivelActual + 1,
+                    categoria: p.cat,
+                    pregunta: p.pregunta,
+                    estado: "Reintentos",
+                    intentos: intentosFallidosEnNivel
+                });
             }
         }
 
+        function mostrarRecursoDua(tipo) {
+            const p = preguntas[nivelActual];
+            const display = document.getElementById('duaDisplay');
+            display.innerHTML = p.dua[tipo];
+            display.style.display = 'block';
+        }
+
         function enviarResultadosAGoogleSheets() {
-            const urlWebApps = "https://script.google.com/macros/s/AKfycbx_m4HYbQ1ggeutMvyQY429LBknoESe5jkf2ihXYWocJ1mkIyqKPg51zgLN8cI4vFg/exec";
+            const urlWebApps = "AQUI_PEGA_TU_URL_DE_GOOGLE_APPS_SCRIPT";
             const estadoTexto = document.getElementById('envioEstado');
 
             const datos = {
-                nombre: docenteNombre,
-                area: docenteArea,
+                nombre: estudianteNombre,
+                curso: estudianteCurso,
                 resultados: estadisticasJuego
             };
 
@@ -599,12 +818,12 @@
                 body: JSON.stringify(datos)
             })
             .then(() => {
-                estadoTexto.innerText = "✅ ¡Resultados avanzados guardados en tu Excel del Drive!";
+                estadoTexto.innerText = "✅ ¡Tus resultados han sido registrados exitosamente!";
                 estadoTexto.style.color = "#81c784";
             })
             .catch(error => {
                 console.error("Error:", error);
-                estadoTexto.innerText = "⚠️ Ocurrió un error al sincronizar con el Drive.";
+                estadoTexto.innerText = "⚠️ No se pudieron sincronizar los resultados.";
                 estadoTexto.style.color = "#ef5350";
             });
         }
